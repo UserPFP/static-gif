@@ -10,11 +10,17 @@ export default {
 
 		const fallback = `https://cdn.discordapp.com/embed/avatars/${Math.floor(Math.random() * 6)}.png`;
 
-		const gif = url.searchParams.get('url');
+		let gif = url.searchParams.get('url');
 		if (!gif) return fetch(fallback);
 
 		try {
-			new URL(gif);
+			// NOTE - Hotfix for the UserPFP vendetta plugin being silly
+			const gifUrl = new URL(gif);
+			if (gifUrl.hostname === 'static-gif.nexpid.workers.dev') {
+				gif = gifUrl.searchParams.get('url');
+				if (gif) new URL(gif);
+				else throw ':P';
+			}
 		} catch {
 			return fetch(fallback);
 		}
@@ -28,6 +34,7 @@ export default {
 
 		try {
 			const buffer = await res.arrayBuffer();
+
 			const parsed = parseGIF(buffer);
 			const aframe = parsed.frames.find((x) => 'image' in x);
 			if (!aframe || !('image' in aframe)) throw new Error('no aframe found');
