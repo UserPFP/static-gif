@@ -8,20 +8,22 @@ export default {
 
 		if (url.pathname !== '/convert.gif') return Response.redirect('https://github.com/UserPFP/static-gif');
 
+		const fallback = `https://cdn.discordapp.com/embed/avatars/${Math.floor(Math.random() * 6)}.png`;
+
 		const gif = url.searchParams.get('url');
-		if (!gif) return Response.json({ error: 'missing url query' }, { status: 400 });
+		if (!gif) return fetch(fallback);
 
 		try {
 			new URL(gif);
 		} catch {
-			return Response.json({ error: 'url query is not a valid URL' }, { status: 400 });
+			return fetch(fallback);
 		}
 
 		let res: Response;
 		try {
 			res = await fetch(gif, request);
 		} catch {
-			return Response.json({ error: 'an error occured while converting' }, { status: 400 });
+			return fetch(fallback);
 		}
 
 		try {
@@ -36,7 +38,11 @@ export default {
 			const index = applyPalette(patch, palette);
 
 			const frm = new GIFEncoder();
-			frm.writeFrame(index, aframe.image.descriptor.width, aframe.image.descriptor.height, { palette, transparent: true });
+			frm.writeFrame(index, aframe.image.descriptor.width, aframe.image.descriptor.height, {
+				palette,
+				transparent: true,
+				transparentIndex: aframe.gce.transparentColorIndex,
+			});
 			frm.finish();
 
 			const bytes = frm.bytes();
@@ -47,8 +53,12 @@ export default {
 					'Content-length': bytes.length.toString(),
 				},
 			});
-		} catch {
-			return new Response(res.body, res);
+		} catch (e) {
+			try {
+				return new Response(res.bodyUsed ? res.clone().body : res.body, res);
+			} catch (f) {
+				return fetch(fallback);
+			}
 		}
 	},
 };
