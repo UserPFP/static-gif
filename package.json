@@ -1,19 +1,22 @@
 {
-  "name": "static-gif",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "deploy": "wrangler deploy",
-    "dev": "wrangler dev",
-    "start": "wrangler dev"
-  },
-  "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230419.0",
-    "typescript": "^5.0.4",
-    "wrangler": "^3.13.1"
-  },
-  "dependencies": {
-    "gifenc": "^1.0.3",
-    "gifuct-js": "^2.1.2"
-  }
+	"name": "static-gif",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"deploy": "wrangler deploy --minify",
+		"dev": "wrangler dev",
+		"start": "wrangler dev",
+		"cf-typegen": "wrangler types"
+	},
+	"devDependencies": {
+		"@cloudflare/workers-types": "^4.20241112.0",
+		"prettier": "^3.3.3",
+		"typescript": "^5.5.2",
+		"wrangler": "^3.60.3"
+	},
+	"dependencies": {
+		"gifenc": "^1.0.3",
+		"gifuct-js": "^2.1.2"
+	},
+	"packageManager": "pnpm@9.12.3"
 }

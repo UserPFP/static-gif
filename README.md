@@ -1,17 +1,13 @@
-# static-gif
+# ![static-gif](./.github/banger.gif)
 
-A Cloudflare Worker that turns animated PFPs into static ones  
-Used in the Vendetta plugin for better performance
+> [!IMPORTANT]
+> This worker is no longer needed, as (almost) every image is stored in the [img](https://github.com/UserPFP/img) repo is saved as both .gif and .png
+
+A shrimple [Cloudflare Worker](https://workers.cloudflare.com/) that turns animated UserPFP avatars into static ones. (formerly) Used by [the Bunny plugin](https://bunny.nexpid.xyz/userpfp)
 
 ## Examples
 
-> **Note**
-> Going to any other route other than `convert.gif` will redirect you to this GitHub page
-
-|                                                                                                                                                                           |                                                                                                        |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| ![a static version of shiggy](https://static-gif.nexpid.workers.dev/convert.gif?url=https%3A%2F%2Fraw.githubusercontent.com%2FUserPFP%2Fimg%2Fmain%2FBadges%2Fshiggy.gif) | ![an animated version of shiggy](https://raw.githubusercontent.com/UserPFP/img/main/Badges/shiggy.gif) |
-
-|                                                                                                                                                                                                       |                                                                                                                                  |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| ![a static version of a weird white cat](https://static-gif.nexpid.workers.dev/convert.gif?url=https%3A%2F%2Fraw.githubusercontent.com%2FUserPFP%2Fimg%2Fmain%2FAvatars%2F7%2F784594694352666654.gif) | ![an animated version of a weird white cat](https://raw.githubusercontent.com/UserPFP/img/main/Avatars/7/784594694352666654.gif) |
+| Original                                                                                                        | Static                                                                                                                                                                                   |
+| --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ![spinning chip](https://raw.githubusercontent.com/UserPFP/img/main/Avatars/9/905278377508884552.gif)           | ![spinning chip but it's not spinning](https://static-gif.nexpid.workers.dev/convert.gif?url=https://raw.githubusercontent.com/UserPFP/img/main/Avatars/9/905278377508884552.gif)        |
+| ![absolutely fuming kitty](https://raw.githubusercontent.com/UserPFP/img/main/Avatars/9/916041347855712307.gif) | ![absolutely fuming kitty but frozen in time](https://static-gif.nexpid.workers.dev/convert.gif?url=https://raw.githubusercontent.com/UserPFP/img/main/Avatars/9/916041347855712307.gif) |
